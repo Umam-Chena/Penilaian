@@ -18,7 +18,9 @@ class Dashboard extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            StatsOverview::class,
+            \App\Filament\Widgets\StatsOverview::class,
+            \App\Filament\Widgets\SalesChart::class,
+            \App\Filament\Widgets\VisitorsChart::class,
         ];
     }
 }

@@ -34,7 +34,9 @@ namespace App\Filament\Resources\Categories;
 
         public static function getRelations(): array
         {
-            return [];
+            return [
+                RelationManagers\ProductsRelationManager::class,
+            ];
         }
 
         public static function getPages(): array

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Categories\Schemas;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Repeater;
 use Filament\Schemas\Schema;
 
 class CategoryForm
@@ -13,6 +14,17 @@ class CategoryForm
             ->components([
                 TextInput::make('name')
                     ->required(),
+
+                Repeater::make('products')
+                    ->relationship()
+                    ->schema([
+                        TextInput::make('name')->required(),
+                        TextInput::make('price')->numeric()->required(),
+                        TextInput::make('stock')->numeric()->required(),
+                    ])
+                    ->columns(2)
+                    ->createItemButtonLabel('Add product')
+                    ->collapsible(),
             ]);
     }
 }
