@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class UserForm
@@ -22,7 +23,20 @@ class UserForm
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
-                    ->required(),
+                    ->required()
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrateStateUsing(fn ($state) => bcrypt($state))
+                    ->hiddenOn('edit'), // Hide on edit, biar password lama nggak keliatan
+                
+                // ✅ Tambahan untuk Roles
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
+                    ->label('Roles')
+                    ->columnSpanFull(),
+                
                 Textarea::make('two_factor_secret')
                     ->columnSpanFull(),
                 Textarea::make('two_factor_recovery_codes')

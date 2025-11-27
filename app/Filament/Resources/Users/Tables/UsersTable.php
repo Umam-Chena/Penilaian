@@ -19,12 +19,22 @@ class UsersTable
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
+                
+                // ✅ Tambahan untuk nampilin Roles
+                TextColumn::make('roles.name')
+                    ->badge()
+                    ->separator(',')
+                    ->label('Roles')
+                    ->searchable(),
+                
                 TextColumn::make('email_verified_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -32,16 +32,22 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+
+            // === DISCOVER RESOURCES, PAGES, WIDGETS ===
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
+
+            // === MIDDLEWARE ===
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -53,11 +59,15 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->plugins([
-                FilamentShieldPlugin::make(),
-            ])
+
+            // === AUTH ===
             ->authMiddleware([
                 Authenticate::class,
+            ])
+
+            // === FILAMENT SHIELD (WAJIB) ===
+            ->plugins([
+                FilamentShieldPlugin::make(),
             ]);
     }
 }
