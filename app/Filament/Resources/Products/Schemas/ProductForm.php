@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class ProductForm
@@ -12,14 +13,22 @@ class ProductForm
     {
         return $schema
             ->components([
-                TextInput::make('category_id')
-                    ->numeric(),
+                Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->label('Category')
+                    ->required(),
                 TextInput::make('name'),
                 TextInput::make('price')
                     ->numeric()
+                    ->minValue(0)
+                    ->default(0)
                     ->prefix('$'),
                 TextInput::make('stock')
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(0)
+                    ->default(0),
                 Textarea::make('description')
                     ->columnSpanFull(),
             ]);

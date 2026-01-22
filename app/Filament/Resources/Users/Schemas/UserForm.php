@@ -28,6 +28,19 @@ class UserForm
                     ->dehydrateStateUsing(fn ($state) => bcrypt($state))
                     ->hiddenOn('edit'), // Hide on edit, biar password lama nggak keliatan
                 
+                // ✅ Field untuk ganti password (hanya di edit)
+                TextInput::make('new_password')
+                    ->label('Password Baru')
+                    ->password()
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
+                    ->hiddenOn('create'),
+                TextInput::make('new_password_confirmation')
+                    ->label('Konfirmasi Password Baru')
+                    ->password()
+                    ->dehydrated(false)
+                    ->hiddenOn('create'),
+                
                 // ✅ Tambahan untuk Roles
                 Select::make('roles')
                     ->relationship('roles', 'name')

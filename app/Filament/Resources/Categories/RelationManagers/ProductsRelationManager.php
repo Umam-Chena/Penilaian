@@ -24,9 +24,13 @@ class ProductsRelationManager extends RelationManager
                     ->required(),
                 Forms\Components\TextInput::make('price')
                     ->numeric()
+                    ->minValue(0)
+                    ->default(0)
                     ->required(),
                 Forms\Components\TextInput::make('stock')
                     ->numeric()
+                    ->minValue(0)
+                    ->default(0)
                     ->required(),
                 // Add more fields as needed
             ]);
@@ -38,6 +42,9 @@ class ProductsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('price'),
+                Tables\Columns\TextColumn::make('stock')
+                    ->numeric()
+                    ->sortable(),
                 // Add more columns as needed
             ])
             ->headerActions([

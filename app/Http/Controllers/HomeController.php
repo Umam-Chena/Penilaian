@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use App\Models\Category;
+use Inertia\Inertia;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        $products = Product::with('category')->get();
+        $categories = Category::all();
+
+        return Inertia::render('Home', [
+            'products' => $products,
+            'categories' => $categories,
+        ]);
+    }
+}

@@ -19,8 +19,8 @@ class CategoryForm
                     ->relationship()
                     ->schema([
                         TextInput::make('name')->required(),
-                        TextInput::make('price')->numeric()->required(),
-                        TextInput::make('stock')->numeric()->required(),
+                        TextInput::make('price')->numeric()->minValue(0)->default(0)->required(),
+                        TextInput::make('stock')->numeric()->minValue(0)->default(0)->required(),
                     ])
                     ->columns(2)
                     ->createItemButtonLabel('Add product')
